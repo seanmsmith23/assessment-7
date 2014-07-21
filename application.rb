@@ -1,6 +1,6 @@
 require 'sinatra/base'
 require 'gschool_database_connection'
-
+require_relative 'models/messages_table'
 require './lib/country_list'
 
 class Application < Sinatra::Application
@@ -8,10 +8,20 @@ class Application < Sinatra::Application
   def initialize
     super
     @database_connection = GschoolDatabaseConnection::DatabaseConnection.establish(ENV['RACK_ENV'])
+    @messages = MessagesTable.new(GschoolDatabaseConnection::DatabaseConnection.establish(ENV['RACK_ENV']))
   end
 
   get '/' do
-    erb :index
+    erb :index, locals: { :messages => @messages.get_messages}
+  end
+
+  post "/add_message" do
+    name = params[:name]
+    message = params[:message]
+
+    @messages.add_message(name, message)
+
+    redirect '/'
   end
 
   get '/continents' do

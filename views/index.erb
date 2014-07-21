@@ -2,3 +2,15 @@
 
 <p>We show totally accurate lists of continents and countries!!</p>
 
+<form action="add_message" method="post">
+  <label for="name">Name</label>
+  <input type="text" name="name" id="name">
+  <label for="message">Message</label>
+  <input type="text" name="message" id="message">
+  <button>Add Message</button>
+</form>
+
+<% messages.each do |message_hash| %>
+  <h4><%= message_hash["name"] %></h4><br>
+  <h4><%= message_hash["message"] %></h4><br><br>
+<% end %>
