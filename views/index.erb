@@ -11,6 +11,5 @@
 </form>
 
 <% messages.each do |message_hash| %>
-  <h4><%= message_hash["name"] %></h4><br>
-  <h4><%= message_hash["message"] %></h4><br><br>
+  <p class="message"><%= message_hash["name"] %>: <%= message_hash["message"] %></p><br>
 <% end %>
